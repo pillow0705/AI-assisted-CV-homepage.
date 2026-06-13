@@ -15,13 +15,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check setup_complete via a cookie set after setup finishes
-  const setupComplete = request.cookies.get("setup_complete")?.value === "true";
-
-  if (!setupComplete && pathname !== "/setup") {
-    return NextResponse.redirect(new URL("/setup", request.url));
-  }
-
+  // Setup completion is the source of truth in the database, checked
+  // server-side in each page (e.g. app/page.tsx calls isSetupComplete()).
+  // Middleware runs on the edge and can't read the SQLite DB, and a
+  // per-browser cookie is the wrong place to gate a globally-configured
+  // site — a fresh visitor with no cookie would wrongly be sent to /setup.
+  // So we let requests through and defer the decision to the page layer.
   return NextResponse.next();
 }
 

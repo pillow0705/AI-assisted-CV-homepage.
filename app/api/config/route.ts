@@ -8,10 +8,13 @@ export async function GET() {
   const honors = getHonors();
   const projects = getProjects();
 
-  // Never expose the API key or password hash to the client
-  const { ai_api_key, admin_password_hash, ...safe } = config;
+  // Never expose secrets or AI-only private notes to the client.
+  // ai_private_notes is meant for the AI assistant only (read server-side in
+  // /api/chat); it must not leak through this public endpoint.
+  const { ai_api_key, admin_password_hash, ai_private_notes, ...safe } = config;
   void ai_api_key;
   void admin_password_hash;
+  void ai_private_notes;
 
   return NextResponse.json({ config: safe, honors, projects });
 }

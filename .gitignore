@@ -45,3 +45,6 @@ next-env.d.ts
 /public/uploads/*.jpeg
 /public/uploads/*.png
 /public/uploads/*.gif
+
+# local deployment seed (contains personal data + password hash)
+seed.mjs
