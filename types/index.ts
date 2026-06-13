@@ -20,6 +20,8 @@ export interface SiteConfig {
   accent_color?: string;
   location?: string;
   institution?: string;
+  /** JSON string holding the Chinese content overlay (see seed.mjs). */
+  content_cn?: string;
 }
 
 export interface Honor {

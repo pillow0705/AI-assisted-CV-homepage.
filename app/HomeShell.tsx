@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useUI } from "@/components/providers/ThemeLanguageProvider";
+import { localize } from "@/lib/localize";
 import Sidebar from "@/components/layout/Sidebar";
 import AnimatedBackground from "@/components/ui/AnimatedBackground";
 import FloatingOrbs from "@/components/ui/FloatingOrbs";
@@ -21,13 +23,23 @@ interface HomeShellProps {
 }
 
 export default function HomeShell({
-  config,
-  honors,
-  projects,
-  cvSections,
+  config: rawConfig,
+  honors: rawHonors,
+  projects: rawProjects,
+  cvSections: rawCV,
   suggestedQuestions,
 }: HomeShellProps) {
   const [chatOpen, setChatOpen] = useState(false);
+  const { lang } = useUI();
+
+  // Apply the Chinese overlay when the language is 中文.
+  const { config, honors, projects, cvSections } = localize(
+    lang,
+    rawConfig,
+    rawHonors,
+    rawProjects,
+    rawCV
+  );
 
   return (
     <div className="relative min-h-screen animated-cream-bg">

@@ -37,6 +37,7 @@ export default function ChatWidget({
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [streamingContent, setStreamingContent] = useState("");
+  const [mode, setMode] = useState<"chat" | "interview">("chat");
   const [sessionId] = useState(() => uuidv4());
   const [atBottom, setAtBottom] = useState(true);
   const [rateLimited, setRateLimited] = useState(false);
@@ -93,7 +94,7 @@ export default function ChatWidget({
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: newMessages, sessionId }),
+          body: JSON.stringify({ messages: newMessages, sessionId, mode }),
           signal: abortRef.current.signal,
         });
 
@@ -145,7 +146,7 @@ export default function ChatWidget({
         abortRef.current = null;
       }
     },
-    [messages, isStreaming, sessionId]
+    [messages, isStreaming, sessionId, mode]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -169,6 +170,14 @@ export default function ChatWidget({
     setMessages([]);
     setStreamingContent("");
     setRateLimited(false);
+  };
+
+  // Switching mode starts a fresh conversation so the persona is consistent.
+  const switchMode = (next: "chat" | "interview") => {
+    if (next === mode || isStreaming) return;
+    setMode(next);
+    setMessages([]);
+    setStreamingContent("");
   };
 
   const providerLabel: Record<string, string> = {
@@ -289,7 +298,9 @@ export default function ChatWidget({
                   ✦
                 </div>
                 <div>
-                  <p className="font-semibold text-sm leading-tight" style={{ color: "var(--ink)" }}>Ask about {ownerName}</p>
+                  <p className="font-semibold text-sm leading-tight" style={{ color: "var(--ink)" }}>
+                    {mode === "interview" ? `Mock interview with ${ownerName}` : `Ask about ${ownerName}`}
+                  </p>
                   <p className="text-xs" style={{ color: "var(--ink-faint)" }}>
                     Powered by{" "}
                     <span style={{ color: "var(--matcha-deep)" }}>{providerLabel[aiProvider] || aiProvider}</span>
@@ -317,6 +328,34 @@ export default function ChatWidget({
               </div>
             </div>
 
+            {/* Mode toggle: ask-about vs mock-interview */}
+            <div
+              className="flex gap-1 px-3 py-2 flex-shrink-0"
+              style={{ borderBottom: "1px solid var(--border)" }}
+            >
+              {([
+                { id: "chat", label: "💬 Ask about me" },
+                { id: "interview", label: "🎤 Mock interview" },
+              ] as const).map((m) => {
+                const isActive = mode === m.id;
+                return (
+                  <button
+                    key={m.id}
+                    onClick={() => switchMode(m.id)}
+                    disabled={isStreaming}
+                    className="flex-1 text-xs font-medium py-1.5 rounded-lg transition-all disabled:opacity-50"
+                    style={
+                      isActive
+                        ? { background: "var(--matcha)", color: "#fff" }
+                        : { background: "var(--surface-2)", color: "var(--ink-soft)", border: "1px solid var(--border)" }
+                    }
+                  >
+                    {m.label}
+                  </button>
+                );
+              })}
+            </div>
+
             {/* Messages */}
             <div
               ref={messagesContainerRef}
@@ -325,9 +364,20 @@ export default function ChatWidget({
             >
               {messages.length === 0 && !isStreaming && (
                 <div className="text-center py-6 px-4">
-                  <div className="text-3xl mb-3">✦</div>
-                  <p className="text-sm font-medium mb-1" style={{ color: "var(--ink)" }}>Hi! I&apos;m {ownerName}&apos;s AI</p>
-                  <p className="text-xs" style={{ color: "var(--ink-faint)" }}>Ask me anything about {ownerName}&apos;s background, research, or projects.</p>
+                  <div className="text-3xl mb-3">{mode === "interview" ? "🎤" : "✦"}</div>
+                  {mode === "interview" ? (
+                    <>
+                      <p className="text-sm font-medium mb-1" style={{ color: "var(--ink)" }}>You&apos;re the interviewer</p>
+                      <p className="text-xs" style={{ color: "var(--ink-faint)" }}>
+                        I&apos;ll answer as {ownerName} in the first person — ask interview questions to help {ownerName} practice.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-sm font-medium mb-1" style={{ color: "var(--ink)" }}>Hi! I&apos;m {ownerName}&apos;s AI</p>
+                      <p className="text-xs" style={{ color: "var(--ink-faint)" }}>Ask me anything about {ownerName}&apos;s background, research, or projects.</p>
+                    </>
+                  )}
                 </div>
               )}
 
@@ -374,9 +424,17 @@ export default function ChatWidget({
             )}
 
             {/* Suggested questions */}
-            {messages.length === 0 && !isStreaming && suggestedQuestions.length > 0 && (
+            {messages.length === 0 && !isStreaming && (
               <SuggestedQuestions
-                questions={suggestedQuestions}
+                questions={
+                  mode === "interview"
+                    ? [
+                        "Tell me about yourself.",
+                        "Walk me through your most challenging project.",
+                        "Why are you interested in this role?",
+                      ]
+                    : suggestedQuestions
+                }
                 onSelect={(q) => sendMessage(q)}
               />
             )}

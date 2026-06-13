@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSiteConfig, getHonors, getProjects } from "@/lib/config";
+import { getSiteConfig, getHonors, getProjects, getCVSections } from "@/lib/config";
 import { streamChat } from "@/lib/ai";
-import { buildSystemPrompt, truncateMessages } from "@/lib/ai/prompts";
+import { buildSystemPrompt, buildInterviewPrompt, truncateMessages } from "@/lib/ai/prompts";
 import { getDb } from "@/lib/db";
 import { v4 as uuidv4 } from "uuid";
 import type { Message } from "@/types";
@@ -25,7 +25,11 @@ function checkSessionLimit(sessionId: string): boolean {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { messages, sessionId } = body as { messages: Message[]; sessionId: string };
+    const { messages, sessionId, mode } = body as {
+      messages: Message[];
+      sessionId: string;
+      mode?: "chat" | "interview";
+    };
 
     if (!messages?.length || !sessionId) {
       return NextResponse.json({ error: "Invalid request" }, { status: 400 });
@@ -42,8 +46,13 @@ export async function POST(req: NextRequest) {
 
     const honors = getHonors();
     const projects = getProjects();
+    const cvSections = getCVSections();
 
-    const systemPrompt = buildSystemPrompt({ config, honors, projects });
+    const promptCtx = { config, honors, projects, cvSections };
+    const systemPrompt =
+      mode === "interview"
+        ? buildInterviewPrompt(promptCtx)
+        : buildSystemPrompt(promptCtx);
     const truncated = truncateMessages(messages);
 
     const encoder = new TextEncoder();

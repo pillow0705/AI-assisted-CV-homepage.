@@ -24,6 +24,7 @@ export function getSiteConfig(): Partial<SiteConfig> {
     setup_complete: raw.setup_complete === "true",
     location: raw.location,
     institution: raw.institution,
+    content_cn: raw.content_cn,
   };
 }
 
