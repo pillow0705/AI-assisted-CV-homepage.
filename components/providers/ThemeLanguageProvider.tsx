@@ -22,12 +22,12 @@ interface Ctx {
 const ThemeLanguageContext = createContext<Ctx | null>(null);
 
 export function ThemeLanguageProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [lang, setLangState] = useState<Lang>("en");
 
   // Hydrate from localStorage once on mount.
   useEffect(() => {
-    const savedTheme = (localStorage.getItem("theme") as Theme | null) ?? "light";
+    const savedTheme = (localStorage.getItem("theme") as Theme | null) ?? "dark";
     const savedLang = (localStorage.getItem("lang") as Lang | null) ?? "en";
     setTheme(savedTheme);
     setLangState(savedLang);

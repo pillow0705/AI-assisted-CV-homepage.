@@ -11,7 +11,7 @@ interface Particle {
   color: string;
 }
 
-const COLORS = ["#8FBE74", "#A9D38C", "#6E9F57", "#C7B27A", "#B6DD9B"];
+const COLORS = ["#F6A8C0", "#F4B6CE", "#F9C6D3", "#8FBE74", "#EFA0BC"];
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -56,7 +56,7 @@ export default function AnimatedBackground() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(110,159,87,${0.10 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(232,140,170,${0.12 * (1 - dist / 120)})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);

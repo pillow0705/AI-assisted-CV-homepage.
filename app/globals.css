@@ -8,44 +8,45 @@
    ============================================================ */
 
 :root,
+/* Palette: soft pink background + matcha-green accent. */
 [data-theme="light"] {
-  --cream-bg: #FBF3DA;       /* page background — soft custard */
-  --cream-bg-2: #F6EBC9;     /* deeper cream for gradients */
-  --surface: #FFFDF5;        /* cards */
-  --surface-2: #FCF6E4;      /* subtle raised */
-  --ink: #4A3F2A;            /* primary text — warm brown */
-  --ink-soft: #6F6347;       /* secondary text */
-  --ink-faint: #9A8E6E;      /* muted */
+  --cream-bg: #FCEEF1;       /* page background — soft blush pink */
+  --cream-bg-2: #F8E1E8;     /* deeper pink for gradients */
+  --surface: #FFF7F9;        /* cards */
+  --surface-2: #FCEAEF;      /* subtle raised */
+  --ink: #5A3D45;            /* primary text — soft plum */
+  --ink-soft: #836068;       /* secondary text */
+  --ink-faint: #AE8C94;      /* muted */
   --matcha: #7FA86A;         /* accent — matcha green */
   --matcha-deep: #5E8C4F;    /* darker matcha for emphasis */
-  --matcha-soft: #E4EEDA;    /* matcha tint backgrounds */
-  --border: #E7DBB8;         /* warm border */
-  --border-strong: #D8C99B;
-  --sidebar-bg: #6E7A4F;     /* olive/matcha sidebar */
-  --sidebar-ink: #FBF3DA;
-  --sidebar-ink-soft: #DCE4C4;
-  --shadow: 0 8px 30px rgba(120, 100, 50, 0.10);
+  --matcha-soft: #E6EFDD;    /* matcha tint backgrounds */
+  --border: #F2D6DF;         /* pink border */
+  --border-strong: #E6BECB;
+  --sidebar-bg: #C98A9C;     /* dusty rose sidebar */
+  --sidebar-ink: #FFF7F9;
+  --sidebar-ink-soft: #F3DCE3;
+  --shadow: 0 8px 30px rgba(180, 110, 130, 0.12);
   --gradient-accent: linear-gradient(135deg, #8FBE74 0%, #6E9F57 100%);
 }
 
 [data-theme="dark"] {
-  --cream-bg: #221F17;       /* deep warm charcoal */
-  --cream-bg-2: #2A2619;
-  --surface: #2C2820;
-  --surface-2: #332E23;
-  --ink: #F3EAD0;            /* warm cream text */
-  --ink-soft: #C9BE9E;
-  --ink-faint: #8F856A;
-  --matcha: #9BC97F;
-  --matcha-deep: #B6DD9B;
-  --matcha-soft: #38402C;
-  --border: #3E3829;
-  --border-strong: #4F4733;
-  --sidebar-bg: #1B1910;
-  --sidebar-ink: #F3EAD0;
-  --sidebar-ink-soft: #B9AE8C;
-  --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
-  --gradient-accent: linear-gradient(135deg, #9BC97F 0%, #6E9F57 100%);
+  --cream-bg: #221319;       /* deep rose-charcoal */
+  --cream-bg-2: #2B1820;
+  --surface: #2D1C24;
+  --surface-2: #361F29;
+  --ink: #F5E2E8;            /* soft pink-cream text */
+  --ink-soft: #D8BDC6;
+  --ink-faint: #9E808B;
+  --matcha: #A6D389;         /* accent — bright matcha */
+  --matcha-deep: #BEE3A4;
+  --matcha-soft: #2F3A26;
+  --border: #422A33;
+  --border-strong: #563642;
+  --sidebar-bg: #1A0F14;
+  --sidebar-ink: #F5E2E8;
+  --sidebar-ink-soft: #C7A8B2;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  --gradient-accent: linear-gradient(135deg, #A6D389 0%, #6E9F57 100%);
 }
 
 * {
