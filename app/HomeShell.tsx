@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Sidebar from "@/components/layout/Sidebar";
-import ReadingProgress from "@/components/ui/ReadingProgress";
 import AnimatedBackground from "@/components/ui/AnimatedBackground";
 import FloatingOrbs from "@/components/ui/FloatingOrbs";
 import AboutSection from "@/components/homepage/AboutSection";
@@ -32,7 +31,6 @@ export default function HomeShell({
 
   return (
     <div className="relative min-h-screen animated-cream-bg">
-      <ReadingProgress />
       <AnimatedBackground />
       <FloatingOrbs />
 

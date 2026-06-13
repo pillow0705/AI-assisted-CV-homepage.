@@ -180,15 +180,45 @@ export default function ChatWidget({
   return (
     <>
       {/* Trigger button (also accessible via id for external click) */}
+      {/* Attention label + arrow pointing at the button (closed state only) */}
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.div
+            key="chat-hint"
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: [0, -6, 0] }}
+            exit={{ opacity: 0, x: 16 }}
+            transition={{
+              opacity: { duration: 0.4 },
+              x: { duration: 1.6, repeat: Infinity, ease: "easeInOut" },
+            }}
+            onClick={() => setOpen(true)}
+            className="fixed bottom-[34px] right-24 z-50 cursor-pointer hidden sm:flex items-center gap-2"
+          >
+            <span
+              className="px-4 py-2 rounded-2xl text-sm font-semibold whitespace-nowrap shadow-lg"
+              style={{
+                background: "var(--surface)",
+                color: "var(--ink)",
+                border: "1.5px solid var(--matcha)",
+                boxShadow: "0 6px 20px rgba(110,159,87,0.30)",
+              }}
+            >
+              💬 Ask my AI →
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <button
         id="chat-trigger"
         onClick={() => setOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${
-          isOpen ? "rotate-45 scale-90" : "animate-bounce-chat"
+        className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
+          isOpen ? "rotate-45 scale-90" : "animate-bounce-chat hover:scale-110"
         }`}
         style={{
           background: "linear-gradient(135deg, #8FBE74, #6E9F57)",
-          boxShadow: "0 0 22px rgba(110,159,87,0.55), 0 4px 18px rgba(74,63,42,0.25)",
+          boxShadow: "0 0 0 5px rgba(143,190,116,0.22), 0 0 30px rgba(110,159,87,0.7), 0 6px 22px rgba(74,63,42,0.3)",
         }}
         aria-label="Toggle AI chat"
       >
@@ -199,7 +229,7 @@ export default function ChatWidget({
               initial={{ rotate: -45, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 45, opacity: 0 }}
-              className="text-white text-xl font-light"
+              className="text-white text-2xl font-light"
             >
               ✕
             </motion.span>
@@ -209,7 +239,7 @@ export default function ChatWidget({
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="text-white text-xl"
+              className="text-white text-2xl"
             >
               ✦
             </motion.span>
@@ -217,13 +247,13 @@ export default function ChatWidget({
         </AnimatePresence>
       </button>
 
-      {/* Pulse ring on closed state */}
+      {/* Expanding pulse ring on closed state */}
       {!isOpen && (
         <div
-          className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full pointer-events-none"
+          className="fixed bottom-6 right-6 z-40 w-16 h-16 rounded-full pointer-events-none"
           style={{
-            background: "rgba(110,159,87,0.2)",
-            animation: "glowPulse 2s ease-in-out infinite",
+            background: "rgba(110,159,87,0.35)",
+            animation: "chatPing 1.8s cubic-bezier(0,0,0.2,1) infinite",
           }}
         />
       )}
