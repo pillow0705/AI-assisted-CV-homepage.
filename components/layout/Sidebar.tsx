@@ -19,7 +19,7 @@ const SECTIONS = [
 ];
 
 export default function Sidebar({ config }: SidebarProps) {
-  const { theme, toggleTheme, lang, setLang, t } = useUI();
+  const { lang, setLang, t } = useUI();
   const [active, setActive] = useState("about");
 
   // Scroll-spy: highlight the section currently in view.
@@ -63,7 +63,7 @@ export default function Sidebar({ config }: SidebarProps) {
               src={config.avatar_url}
               alt={config.name}
               className="w-28 h-28 rounded-full object-cover relative z-10"
-              style={{ border: "3px solid rgba(255,255,255,0.25)" }}
+              style={{ border: "3px solid rgba(255,255,255,0.6)" }}
             />
           </div>
         )}
@@ -98,8 +98,8 @@ export default function Sidebar({ config }: SidebarProps) {
               onClick={() => scrollTo(s.id)}
               className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all duration-200 text-left"
               style={{
-                background: isActive ? "rgba(255,255,255,0.12)" : "transparent",
-                color: isActive ? "#fff" : "var(--sidebar-ink-soft)",
+                background: isActive ? "rgba(255,255,255,0.55)" : "transparent",
+                color: isActive ? "var(--sidebar-ink)" : "var(--sidebar-ink-soft)",
                 fontWeight: isActive ? 600 : 400,
                 borderLeft: isActive
                   ? "2px solid var(--matcha)"
@@ -131,44 +131,31 @@ export default function Sidebar({ config }: SidebarProps) {
         </a>
       )}
 
-      {/* Controls: theme + language */}
+      {/* Language switch */}
       <div
-        className="flex items-center justify-between gap-2 p-2 rounded-xl mb-5"
-        style={{ background: "rgba(255,255,255,0.08)" }}
+        className="flex items-center justify-center gap-1 p-2 rounded-xl mb-5"
+        style={{ background: "rgba(107, 58, 71, 0.10)" }}
       >
-        {/* Theme toggle */}
-        <button
-          onClick={toggleTheme}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors hover:bg-white/10"
-          style={{ color: "var(--sidebar-ink)" }}
-          aria-label="Toggle theme"
-        >
-          {theme === "light" ? "🌙" : "☀️"}
-          <span className="text-xs">{theme === "light" ? "Dark" : "Light"}</span>
-        </button>
-        {/* Language */}
-        <div className="flex gap-1">
-          {(["en", "cn"] as const).map((l) => (
-            <button
-              key={l}
-              onClick={() => setLang(l)}
-              className="text-xs px-2.5 py-1 rounded-md transition-colors"
-              style={{
-                background: lang === l ? "var(--matcha)" : "transparent",
-                color: lang === l ? "#fff" : "var(--sidebar-ink-soft)",
-                fontWeight: lang === l ? 600 : 400,
-              }}
-            >
-              {l === "en" ? "EN" : "中文"}
-            </button>
-          ))}
-        </div>
+        {(["en", "cn"] as const).map((l) => (
+          <button
+            key={l}
+            onClick={() => setLang(l)}
+            className="text-xs px-3 py-1.5 rounded-md transition-colors"
+            style={{
+              background: lang === l ? "var(--matcha)" : "transparent",
+              color: lang === l ? "#fff" : "var(--sidebar-ink-soft)",
+              fontWeight: lang === l ? 600 : 400,
+            }}
+          >
+            {l === "en" ? "EN" : "中文"}
+          </button>
+        ))}
       </div>
 
       {/* Contact / social */}
       <div
         className="pt-5 space-y-3 text-sm"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}
+        style={{ borderTop: "1px solid rgba(107, 58, 71, 0.18)" }}
       >
         {config.location && (
           <div className="flex items-center gap-3" style={{ color: "var(--sidebar-ink-soft)" }}>

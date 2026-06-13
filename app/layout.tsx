@@ -10,19 +10,13 @@ export const metadata: Metadata = {
   description: "AI-assisted personal homepage",
 };
 
-// Set theme attribute before paint to avoid a flash of the wrong theme.
-const themeInit = `(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`;
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="dark" className={inter.variable} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
-      </head>
+    <html lang="en" className={inter.variable}>
       <body className="min-h-screen">
         <ThemeLanguageProvider>{children}</ThemeLanguageProvider>
       </body>

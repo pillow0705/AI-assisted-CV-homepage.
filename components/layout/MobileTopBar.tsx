@@ -14,7 +14,7 @@ const SECTIONS = [
 ];
 
 export default function MobileTopBar({ config }: { config: Partial<SiteConfig> }) {
-  const { theme, toggleTheme, lang, setLang, t } = useUI();
+  const { lang, setLang, t } = useUI();
   const [open, setOpen] = useState(false);
 
   const go = (id: string) => {
@@ -33,9 +33,6 @@ export default function MobileTopBar({ config }: { config: Partial<SiteConfig> }
           <span className="font-semibold font-serif-display truncate">{config.name}</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <button onClick={toggleTheme} className="px-2 py-1 rounded-lg hover:bg-white/10" aria-label="Toggle theme">
-            {theme === "light" ? "🌙" : "☀️"}
-          </button>
           {(["en", "cn"] as const).map((l) => (
             <button
               key={l}
@@ -52,7 +49,7 @@ export default function MobileTopBar({ config }: { config: Partial<SiteConfig> }
         </div>
       </div>
       {open && (
-        <nav className="px-4 pb-3 grid grid-cols-2 gap-1" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+        <nav className="px-4 pb-3 grid grid-cols-2 gap-1" style={{ borderTop: "1px solid rgba(107, 58, 71, 0.18)" }}>
           {SECTIONS.map((s) => (
             <button
               key={s.id}

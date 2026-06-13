@@ -8,45 +8,25 @@
    ============================================================ */
 
 :root,
-/* Palette: soft pink background + matcha-green accent. */
-[data-theme="light"] {
-  --cream-bg: #FCEEF1;       /* page background — soft blush pink */
-  --cream-bg-2: #F8E1E8;     /* deeper pink for gradients */
-  --surface: #FFF7F9;        /* cards */
-  --surface-2: #FCEAEF;      /* subtle raised */
-  --ink: #5A3D45;            /* primary text — soft plum */
-  --ink-soft: #836068;       /* secondary text */
-  --ink-faint: #AE8C94;      /* muted */
+/* Single theme: sweet pink throughout, with a matcha-green accent. */
+:root {
+  --cream-bg: #FFE9F0;       /* page background — sweet pink */
+  --cream-bg-2: #FFDCE8;     /* deeper pink for gradients */
+  --surface: #FFF4F8;        /* cards — near-white pink */
+  --surface-2: #FFE7F0;      /* subtle raised */
+  --ink: #7A4A57;            /* primary text — warm rose-brown (not purple) */
+  --ink-soft: #A56B79;       /* secondary text */
+  --ink-faint: #C99AA8;      /* muted */
   --matcha: #7FA86A;         /* accent — matcha green */
   --matcha-deep: #5E8C4F;    /* darker matcha for emphasis */
   --matcha-soft: #E6EFDD;    /* matcha tint backgrounds */
-  --border: #F2D6DF;         /* pink border */
-  --border-strong: #E6BECB;
-  --sidebar-bg: #C98A9C;     /* dusty rose sidebar */
-  --sidebar-ink: #FFF7F9;
-  --sidebar-ink-soft: #F3DCE3;
-  --shadow: 0 8px 30px rgba(180, 110, 130, 0.12);
+  --border: #FBD0DF;         /* pink border */
+  --border-strong: #F3B4C8;
+  --sidebar-bg: #FFB6CE;     /* candy-pink sidebar */
+  --sidebar-ink: #6B3A47;    /* dark rose text on pink sidebar */
+  --sidebar-ink-soft: #9C5E6E;
+  --shadow: 0 8px 30px rgba(230, 130, 165, 0.18);
   --gradient-accent: linear-gradient(135deg, #8FBE74 0%, #6E9F57 100%);
-}
-
-[data-theme="dark"] {
-  --cream-bg: #221319;       /* deep rose-charcoal */
-  --cream-bg-2: #2B1820;
-  --surface: #2D1C24;
-  --surface-2: #361F29;
-  --ink: #F5E2E8;            /* soft pink-cream text */
-  --ink-soft: #D8BDC6;
-  --ink-faint: #9E808B;
-  --matcha: #A6D389;         /* accent — bright matcha */
-  --matcha-deep: #BEE3A4;
-  --matcha-soft: #2F3A26;
-  --border: #422A33;
-  --border-strong: #563642;
-  --sidebar-bg: #1A0F14;
-  --sidebar-ink: #F5E2E8;
-  --sidebar-ink-soft: #C7A8B2;
-  --shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-  --gradient-accent: linear-gradient(135deg, #A6D389 0%, #6E9F57 100%);
 }
 
 * {
