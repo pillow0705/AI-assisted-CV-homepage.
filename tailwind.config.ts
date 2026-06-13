@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["selector", '[data-theme="dark"]'],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,26 +10,36 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        pink: {
-          400: "#F472B6",
-          500: "#EC4899",
-          600: "#DB2777",
+        // CSS-variable-driven theme tokens (work in light & dark)
+        cream: {
+          bg: "var(--cream-bg)",
+          surface: "var(--surface)",
+          surface2: "var(--surface-2)",
         },
-        purple: {
-          400: "#C084FC",
-          500: "#A855F7",
-          600: "#9333EA",
+        ink: {
+          DEFAULT: "var(--ink)",
+          soft: "var(--ink-soft)",
+          faint: "var(--ink-faint)",
         },
-        blue: {
-          400: "#60A5FA",
-          500: "#3B82F6",
-          600: "#2563EB",
+        matcha: {
+          DEFAULT: "var(--matcha)",
+          deep: "var(--matcha-deep)",
+          soft: "var(--matcha-soft)",
+          // static shades for non-themed needs
+          300: "#A9D38C",
+          400: "#8FBE74",
+          500: "#7FA86A",
+          600: "#6E9F57",
+          700: "#5E8C4F",
+        },
+        warmborder: {
+          DEFAULT: "var(--border)",
+          strong: "var(--border-strong)",
         },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-hero":
-          "linear-gradient(135deg, #F472B6 0%, #A855F7 50%, #60A5FA 100%)",
+        "gradient-matcha": "linear-gradient(135deg, #8FBE74 0%, #6E9F57 100%)",
       },
       animation: {
         "float-slow": "float 8s ease-in-out infinite",
@@ -63,8 +74,8 @@ const config: Config = {
           "100%": { backgroundPosition: "200% 0" },
         },
         glowPulse: {
-          "0%, 100%": { boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)" },
-          "50%": { boxShadow: "0 0 40px rgba(168, 85, 247, 0.8), 0 0 60px rgba(244, 114, 182, 0.4)" },
+          "0%, 100%": { boxShadow: "0 0 16px rgba(127, 168, 106, 0.35)" },
+          "50%": { boxShadow: "0 0 34px rgba(127, 168, 106, 0.65), 0 0 50px rgba(143, 190, 116, 0.35)" },
         },
         slideUp: {
           from: { opacity: "0", transform: "translateY(20px)" },
@@ -85,16 +96,12 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Cal Sans", "Inter", "system-ui", "sans-serif"],
+        display: ["Georgia", "Times New Roman", "serif"],
       },
-      backdropBlur: {
-        xs: "2px",
-      },
+      backdropBlur: { xs: "2px" },
       boxShadow: {
-        glass: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-        glow: "0 0 30px rgba(168, 85, 247, 0.5)",
-        "glow-pink": "0 0 30px rgba(244, 114, 182, 0.5)",
-        "glow-blue": "0 0 30px rgba(96, 165, 250, 0.5)",
+        cream: "0 8px 30px rgba(120, 100, 50, 0.10)",
+        "glow-matcha": "0 0 26px rgba(127, 168, 106, 0.45)",
       },
     },
   },

@@ -11,7 +11,7 @@ interface Particle {
   color: string;
 }
 
-const COLORS = ["#F472B6", "#A855F7", "#60A5FA", "#C084FC", "#FB7185"];
+const COLORS = ["#8FBE74", "#A9D38C", "#6E9F57", "#C7B27A", "#B6DD9B"];
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -56,7 +56,7 @@ export default function AnimatedBackground() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(168,85,247,${0.08 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(110,159,87,${0.10 * (1 - dist / 120)})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -95,7 +95,7 @@ export default function AnimatedBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.5 }}
     />
   );
 }

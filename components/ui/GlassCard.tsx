@@ -7,13 +7,13 @@ interface GlassCardProps {
   gradient?: boolean;
 }
 
-export default function GlassCard({ children, className = "", hover = false, gradient = false }: GlassCardProps) {
+/** Cream surface card (formerly glassmorphism). Keeps the same API. */
+export default function GlassCard({ children, className = "", hover = false }: GlassCardProps) {
   return (
     <div
       className={`
-        glass-card p-6
-        ${hover ? "transition-all duration-300 hover:bg-white/[0.07] hover:border-white/20 hover:-translate-y-1 hover:shadow-glow cursor-default" : ""}
-        ${gradient ? "gradient-border" : ""}
+        cream-card p-6
+        ${hover ? "hover:-translate-y-1 hover:shadow-glow-matcha cursor-default" : ""}
         ${className}
       `}
     >

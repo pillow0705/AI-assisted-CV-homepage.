@@ -23,22 +23,25 @@ export default function ChatMessage({ message, isStreaming }: ChatMessageProps) 
     <div className={`flex gap-2.5 mb-4 ${isUser ? "flex-row-reverse" : "flex-row"} group`}>
       {/* Avatar */}
       <div
-        className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-sm mt-1 ${
-          isUser
-            ? "bg-gradient-to-br from-pink-500 to-purple-500"
-            : "bg-gradient-to-br from-purple-500 to-blue-500"
-        }`}
+        className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-sm mt-1"
+        style={{
+          background: isUser
+            ? "linear-gradient(135deg, #C7B27A, #A8924F)"
+            : "linear-gradient(135deg, #8FBE74, #6E9F57)",
+          color: "#fff",
+        }}
       >
         {isUser ? "👤" : "✦"}
       </div>
 
       <div className={`flex flex-col max-w-[80%] ${isUser ? "items-end" : "items-start"}`}>
         <div
-          className={`rounded-2xl px-4 py-3 text-sm leading-relaxed relative ${
+          className={`rounded-2xl px-4 py-3 text-sm leading-relaxed relative ${isUser ? "rounded-tr-sm" : "rounded-tl-sm"}`}
+          style={
             isUser
-              ? "bg-gradient-to-br from-pink-500/30 to-purple-500/30 border border-pink-500/20 text-white rounded-tr-sm"
-              : "bg-white/5 border border-white/8 text-slate-200 rounded-tl-sm"
-          }`}
+              ? { background: "var(--matcha-soft)", border: "1px solid var(--border)", color: "var(--ink)" }
+              : { background: "var(--surface-2)", border: "1px solid var(--border)", color: "var(--ink-soft)" }
+          }
         >
           {isUser ? (
             <p className="whitespace-pre-wrap">{message.content}</p>

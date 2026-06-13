@@ -1,13 +1,7 @@
-import { getSiteConfig, getHonors, getProjects } from "@/lib/config";
+import { getSiteConfig, getHonors, getProjects, getCVSections } from "@/lib/config";
 import { isSetupComplete } from "@/lib/db";
 import { redirect } from "next/navigation";
-import AnimatedBackground from "@/components/ui/AnimatedBackground";
-import FloatingOrbs from "@/components/ui/FloatingOrbs";
-import HeroSection from "@/components/homepage/HeroSection";
-import AboutSection from "@/components/homepage/AboutSection";
-import HonorsSection from "@/components/homepage/HonorsSection";
-import ProjectsSection from "@/components/homepage/ProjectsSection";
-import HomepageClient from "./HomepageClient";
+import HomeShell from "./HomeShell";
 
 export const dynamic = "force-dynamic";
 
@@ -19,26 +13,19 @@ export default function HomePage() {
   const config = getSiteConfig();
   const honors = getHonors();
   const projects = getProjects();
+  const cvSections = getCVSections();
 
   const suggestedQuestions = config.suggested_questions
-    ? config.suggested_questions.split("\n").map((q) => q.trim()).filter(Boolean).slice(0, 3)
+    ? config.suggested_questions.split("\n").map((q) => q.trim()).filter(Boolean).slice(0, 4)
     : [];
 
   return (
-    <main className="relative">
-      <AnimatedBackground />
-      <FloatingOrbs />
-
-      <div className="relative z-10">
-        <HeroSection config={config} />
-        <AboutSection config={config} />
-        <HonorsSection honors={honors} />
-        <ProjectsSection projects={projects} />
-        <HomepageClient
-          config={config}
-          suggestedQuestions={suggestedQuestions}
-        />
-      </div>
-    </main>
+    <HomeShell
+      config={config}
+      honors={honors}
+      projects={projects}
+      cvSections={cvSections}
+      suggestedQuestions={suggestedQuestions}
+    />
   );
 }

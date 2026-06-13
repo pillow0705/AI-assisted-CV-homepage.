@@ -1,57 +1,71 @@
 "use client";
 import { motion } from "framer-motion";
-import GlassCard from "@/components/ui/GlassCard";
+import { useUI } from "@/components/providers/ThemeLanguageProvider";
 import type { SiteConfig } from "@/types";
 
 interface AboutSectionProps {
   config: Partial<SiteConfig>;
 }
 
+/** Render **bold** markdown inline. */
+function renderInline(text: string) {
+  return text.split(/(\*\*.*?\*\*)/).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} style={{ color: "var(--ink)", fontWeight: 600 }}>
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
+
 export default function AboutSection({ config }: AboutSectionProps) {
+  const { t } = useUI();
   if (!config.about) return null;
 
   return (
-    <section id="about" className="py-20 px-4 max-w-5xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.7 }}
-      >
-        <h2 className="text-3xl font-bold mb-10 gradient-text">About Me</h2>
-        <GlassCard gradient className="flex flex-col md:flex-row gap-8 items-start">
-          {config.avatar_url && (
-            <img
-              src={config.avatar_url}
-              alt={config.name}
-              className="w-32 h-32 rounded-2xl object-cover border border-purple-500/30 flex-shrink-0"
-            />
-          )}
-          <div>
-            <p className="text-slate-300 leading-relaxed text-lg whitespace-pre-wrap">{config.about}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              {config.institution && (
-                <span className="px-3 py-1 rounded-full text-sm bg-purple-500/15 text-purple-300 border border-purple-500/20">
-                  🏛 {config.institution}
-                </span>
-              )}
-              {config.location && (
-                <span className="px-3 py-1 rounded-full text-sm bg-blue-500/15 text-blue-300 border border-blue-500/20">
-                  📍 {config.location}
-                </span>
-              )}
-              {config.email && (
-                <a
-                  href={`mailto:${config.email}`}
-                  className="px-3 py-1 rounded-full text-sm bg-pink-500/15 text-pink-300 border border-pink-500/20 hover:bg-pink-500/25 transition-colors"
-                >
-                  ✉ {config.email}
-                </a>
-              )}
-            </div>
-          </div>
-        </GlassCard>
-      </motion.div>
-    </section>
+    <motion.section
+      id="about"
+      className="scroll-mt-24"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6 }}
+    >
+      <h1 className="text-4xl md:text-5xl font-bold font-serif-display tracking-tight mb-6" style={{ color: "var(--ink)" }}>
+        {t.about === "About" ? (
+          <>Hi, I&apos;m <span className="gradient-text">{config.name}</span>.</>
+        ) : (
+          <>你好，我是 <span className="gradient-text">{config.name}</span>。</>
+        )}
+      </h1>
+      <div className="space-y-4 text-lg leading-relaxed font-serif-display" style={{ color: "var(--ink-soft)" }}>
+        {config.about.split("\n").map((line, i) =>
+          line.trim() ? <p key={i}>{renderInline(line)}</p> : null
+        )}
+      </div>
+      <div className="mt-7 flex flex-wrap gap-3">
+        {config.cv_filename && (
+          <a
+            href={`/uploads/${config.cv_filename}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-matcha inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm"
+          >
+            ↓ {t.downloadCV}
+          </a>
+        )}
+        {config.email && (
+          <a
+            href={`mailto:${config.email}`}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm transition-colors"
+            style={{ background: "var(--surface)", color: "var(--ink-soft)", border: "1px solid var(--border)" }}
+          >
+            ✉️ {t.contactMe}
+          </a>
+        )}
+      </div>
+    </motion.section>
   );
 }

@@ -187,8 +187,8 @@ export default function ChatWidget({
           isOpen ? "rotate-45 scale-90" : "animate-bounce-chat"
         }`}
         style={{
-          background: "linear-gradient(135deg, #F472B6, #A855F7, #60A5FA)",
-          boxShadow: "0 0 25px rgba(168,85,247,0.6), 0 4px 20px rgba(0,0,0,0.4)",
+          background: "linear-gradient(135deg, #8FBE74, #6E9F57)",
+          boxShadow: "0 0 22px rgba(110,159,87,0.55), 0 4px 18px rgba(74,63,42,0.25)",
         }}
         aria-label="Toggle AI chat"
       >
@@ -222,7 +222,7 @@ export default function ChatWidget({
         <div
           className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full pointer-events-none"
           style={{
-            background: "rgba(168,85,247,0.2)",
+            background: "rgba(110,159,87,0.2)",
             animation: "glowPulse 2s ease-in-out infinite",
           }}
         />
@@ -238,32 +238,31 @@ export default function ChatWidget({
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-24px)] h-[580px] max-h-[calc(100vh-120px)] flex flex-col rounded-2xl overflow-hidden shadow-2xl"
             style={{
-              background: "rgba(15, 12, 30, 0.92)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(168,85,247,0.25)",
-              boxShadow: "0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(168,85,247,0.15)",
+              background: "var(--surface)",
+              border: "1px solid var(--border-strong)",
+              boxShadow: "0 25px 60px rgba(74,63,42,0.25), 0 0 40px rgba(110,159,87,0.12)",
             }}
           >
             {/* Header */}
             <div
               className="flex items-center justify-between px-4 py-3 flex-shrink-0"
               style={{
-                background: "linear-gradient(90deg, rgba(244,114,182,0.12), rgba(168,85,247,0.12), rgba(96,165,250,0.12))",
-                borderBottom: "1px solid rgba(255,255,255,0.07)",
+                background: "var(--matcha-soft)",
+                borderBottom: "1px solid var(--border)",
               }}
             >
               <div className="flex items-center gap-3">
                 <div
                   className="w-9 h-9 rounded-xl flex items-center justify-center text-base"
-                  style={{ background: "linear-gradient(135deg, #F472B6, #A855F7)" }}
+                  style={{ background: "linear-gradient(135deg, #8FBE74, #6E9F57)", color: "#fff" }}
                 >
                   ✦
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-sm leading-tight">Ask about {ownerName}</p>
-                  <p className="text-slate-500 text-xs">
+                  <p className="font-semibold text-sm leading-tight" style={{ color: "var(--ink)" }}>Ask about {ownerName}</p>
+                  <p className="text-xs" style={{ color: "var(--ink-faint)" }}>
                     Powered by{" "}
-                    <span className="text-purple-400">{providerLabel[aiProvider] || aiProvider}</span>
+                    <span style={{ color: "var(--matcha-deep)" }}>{providerLabel[aiProvider] || aiProvider}</span>
                   </p>
                 </div>
               </div>
@@ -297,8 +296,8 @@ export default function ChatWidget({
               {messages.length === 0 && !isStreaming && (
                 <div className="text-center py-6 px-4">
                   <div className="text-3xl mb-3">✦</div>
-                  <p className="text-slate-300 text-sm font-medium mb-1">Hi! I&apos;m {ownerName}&apos;s AI</p>
-                  <p className="text-slate-500 text-xs">Ask me anything about {ownerName}&apos;s background, research, or projects.</p>
+                  <p className="text-sm font-medium mb-1" style={{ color: "var(--ink)" }}>Hi! I&apos;m {ownerName}&apos;s AI</p>
+                  <p className="text-xs" style={{ color: "var(--ink-faint)" }}>Ask me anything about {ownerName}&apos;s background, research, or projects.</p>
                 </div>
               )}
 
@@ -319,10 +318,10 @@ export default function ChatWidget({
                     />
                   ) : (
                     <div className="flex gap-2.5 mb-4">
-                      <div className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-sm mt-1 bg-gradient-to-br from-purple-500 to-blue-500">
+                      <div className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-sm mt-1" style={{ background: "linear-gradient(135deg, #8FBE74, #6E9F57)", color: "#fff" }}>
                         ✦
                       </div>
-                      <div className="bg-white/5 border border-white/8 rounded-2xl rounded-tl-sm">
+                      <div className="rounded-2xl rounded-tl-sm" style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}>
                         <TypingIndicator />
                       </div>
                     </div>
@@ -337,7 +336,8 @@ export default function ChatWidget({
             {!atBottom && (
               <button
                 onClick={scrollToBottom}
-                className="absolute bottom-[72px] right-4 w-7 h-7 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 hover:bg-purple-500/30 transition-all text-xs"
+                className="absolute bottom-[72px] right-4 w-7 h-7 rounded-full flex items-center justify-center transition-all text-xs"
+                style={{ background: "var(--matcha-soft)", border: "1px solid var(--matcha)", color: "var(--matcha-deep)" }}
               >
                 ↓
               </button>
@@ -360,7 +360,7 @@ export default function ChatWidget({
 
             {/* Input area */}
             <div className="flex-shrink-0 px-3 pb-3 pt-2 border-t border-white/5">
-              <div className="flex items-end gap-2 bg-white/5 rounded-xl border border-white/8 px-3 py-2 focus-within:border-purple-500/50 transition-colors">
+              <div className="flex items-end gap-2 rounded-xl px-3 py-2 transition-colors" style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}>
                 <textarea
                   ref={inputRef}
                   value={input}
@@ -369,8 +369,8 @@ export default function ChatWidget({
                   placeholder="Ask me anything..."
                   rows={1}
                   disabled={rateLimited}
-                  className="flex-1 bg-transparent text-sm text-white placeholder-slate-600 resize-none outline-none min-h-[24px] max-h-[120px] leading-6"
-                  style={{ fieldSizing: "content" } as React.CSSProperties}
+                  className="flex-1 bg-transparent text-sm resize-none outline-none min-h-[24px] max-h-[120px] leading-6"
+                  style={{ fieldSizing: "content", color: "var(--ink)" } as React.CSSProperties}
                 />
                 {isStreaming ? (
                   <button
@@ -386,7 +386,7 @@ export default function ChatWidget({
                     disabled={!input.trim() || rateLimited}
                     className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all disabled:opacity-30"
                     style={{
-                      background: input.trim() ? "linear-gradient(135deg, #A855F7, #60A5FA)" : "rgba(255,255,255,0.05)",
+                      background: input.trim() ? "linear-gradient(135deg, #8FBE74, #6E9F57)" : "var(--border)",
                     }}
                   >
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

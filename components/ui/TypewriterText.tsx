@@ -51,7 +51,7 @@ export default function TypewriterText({
   return (
     <span className={className}>
       {displayText}
-      <span className="animate-pulse text-purple-400">|</span>
+      <span className="animate-pulse" style={{ color: "var(--matcha)" }}>|</span>
     </span>
   );
 }

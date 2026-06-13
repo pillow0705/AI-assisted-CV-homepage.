@@ -2,14 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --pink: #F472B6;
-  --purple: #A855F7;
-  --blue: #60A5FA;
-  --gradient: linear-gradient(135deg, #F472B6 0%, #A855F7 50%, #60A5FA 100%);
-  --bg-dark: #0a0a14;
-  --bg-card: rgba(255, 255, 255, 0.04);
-  --border-glass: rgba(255, 255, 255, 0.1);
+/* ============================================================
+   Theme: Cream (custard) + Matcha green accent
+   Light & dark driven by CSS variables on <html data-theme>.
+   ============================================================ */
+
+:root,
+[data-theme="light"] {
+  --cream-bg: #FBF3DA;       /* page background — soft custard */
+  --cream-bg-2: #F6EBC9;     /* deeper cream for gradients */
+  --surface: #FFFDF5;        /* cards */
+  --surface-2: #FCF6E4;      /* subtle raised */
+  --ink: #4A3F2A;            /* primary text — warm brown */
+  --ink-soft: #6F6347;       /* secondary text */
+  --ink-faint: #9A8E6E;      /* muted */
+  --matcha: #7FA86A;         /* accent — matcha green */
+  --matcha-deep: #5E8C4F;    /* darker matcha for emphasis */
+  --matcha-soft: #E4EEDA;    /* matcha tint backgrounds */
+  --border: #E7DBB8;         /* warm border */
+  --border-strong: #D8C99B;
+  --sidebar-bg: #6E7A4F;     /* olive/matcha sidebar */
+  --sidebar-ink: #FBF3DA;
+  --sidebar-ink-soft: #DCE4C4;
+  --shadow: 0 8px 30px rgba(120, 100, 50, 0.10);
+  --gradient-accent: linear-gradient(135deg, #8FBE74 0%, #6E9F57 100%);
+}
+
+[data-theme="dark"] {
+  --cream-bg: #221F17;       /* deep warm charcoal */
+  --cream-bg-2: #2A2619;
+  --surface: #2C2820;
+  --surface-2: #332E23;
+  --ink: #F3EAD0;            /* warm cream text */
+  --ink-soft: #C9BE9E;
+  --ink-faint: #8F856A;
+  --matcha: #9BC97F;
+  --matcha-deep: #B6DD9B;
+  --matcha-soft: #38402C;
+  --border: #3E3829;
+  --border-strong: #4F4733;
+  --sidebar-bg: #1B1910;
+  --sidebar-ink: #F3EAD0;
+  --sidebar-ink-soft: #B9AE8C;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  --gradient-accent: linear-gradient(135deg, #9BC97F 0%, #6E9F57 100%);
 }
 
 * {
@@ -23,67 +59,49 @@ html {
 }
 
 body {
-  background-color: var(--bg-dark);
-  color: #e2e8f0;
+  background-color: var(--cream-bg);
+  color: var(--ink);
   font-family: Inter, system-ui, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* Gradient text utility */
+/* Gradient (matcha) text utility */
 .gradient-text {
-  background: var(--gradient);
+  background: var(--gradient-accent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glass card */
-.glass-card {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+/* Serif display for academic headings */
+.font-serif-display {
+  font-family: "Georgia", "Times New Roman", serif;
 }
 
-/* Gradient border */
-.gradient-border {
-  position: relative;
+/* Cream card */
+.cream-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 16px;
-}
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  padding: 1px;
-  background: var(--gradient);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(168, 85, 247, 0.4);
-  border-radius: 3px;
+  background: var(--border-strong);
+  border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.7);
-}
+::-webkit-scrollbar-thumb:hover { background: var(--matcha); }
 
-/* Animated gradient background */
-.animated-gradient-bg {
-  background: linear-gradient(-45deg, #0a0a14, #130b2b, #0d1a2b, #150a20);
+/* Animated cream gradient background */
+.animated-cream-bg {
+  background: linear-gradient(-45deg, var(--cream-bg), var(--cream-bg-2), var(--surface-2), var(--cream-bg));
   background-size: 400% 400%;
-  animation: bgShift 15s ease infinite;
+  animation: bgShift 18s ease infinite;
 }
 
 @keyframes bgShift {
@@ -103,42 +121,48 @@ body {
   transform: translateY(0);
 }
 
+/* Reading progress bar */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  z-index: 60;
+  background: var(--gradient-accent);
+  box-shadow: 0 0 10px rgba(127, 168, 106, 0.6);
+  transition: width 0.1s linear;
+}
+
 /* Chat messages markdown */
-.chat-message-content p {
-  margin-bottom: 0.5rem;
-}
-.chat-message-content p:last-child {
-  margin-bottom: 0;
-}
+.chat-message-content p { margin-bottom: 0.5rem; }
+.chat-message-content p:last-child { margin-bottom: 0; }
 .chat-message-content ul,
 .chat-message-content ol {
   padding-left: 1.25rem;
   margin-bottom: 0.5rem;
 }
-.chat-message-content li {
-  margin-bottom: 0.25rem;
-}
+.chat-message-content li { margin-bottom: 0.25rem; }
 .chat-message-content code {
-  background: rgba(168, 85, 247, 0.2);
+  background: var(--matcha-soft);
+  color: var(--matcha-deep);
   padding: 0.1em 0.3em;
   border-radius: 4px;
   font-size: 0.9em;
 }
 .chat-message-content strong {
-  color: #e2e8f0;
+  color: var(--ink);
   font-weight: 600;
 }
 
-/* Glow button */
-.btn-glow {
-  background: var(--gradient);
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+/* Matcha button */
+.btn-matcha {
+  background: var(--gradient-accent);
+  color: #FBF3DA;
+  box-shadow: 0 4px 16px rgba(110, 159, 87, 0.35);
   transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
-.btn-glow:hover {
-  box-shadow: 0 0 35px rgba(168, 85, 247, 0.7), 0 0 60px rgba(244, 114, 182, 0.3);
+.btn-matcha:hover {
+  box-shadow: 0 6px 26px rgba(110, 159, 87, 0.55);
   transform: translateY(-1px);
 }
-.btn-glow:active {
-  transform: translateY(0);
-}
+.btn-matcha:active { transform: translateY(0); }
